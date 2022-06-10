@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+}
+
+.currency_select {
+    display: inline-flex;
+    border: 1px solid red;
+    border-radius: 5px;
+    overflow: hidden;
+
+    input,
+    select {
+        height: 48px;
+        margin: 0;
+        padding: 0 15px;
+        border: none;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+
+    input {
+        border-left: 1px solid red;
+    }
+}
+
+.currency_form {
+    display: flex;
+    align-items: center;
+
+    .equal_sign {
+        display: block;
+        margin: 0 15px;
+        font-size: 40px;
+
+    }
+
+    .add_btn {
+        cursor: pointer;
+    }
+}
