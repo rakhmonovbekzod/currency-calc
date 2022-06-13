@@ -1,11 +1,10 @@
 import axios from 'axios'
 let token = localStorage.getItem('token')
-let apiKey = 'FBVdNtnNoJ5LDhAusEQfIl0S8fUdFCnwnyNZ4RUg'
+let apiKey = 'v93oWdVvyKNqsJ33iUrYPfg0wcXMs8Pe5RC5Bcif'
 
 const instance = axios.create({
     baseURL: 'https://api.currencyapi.com/v3'
 })
-https://api.currencyapi.com/v3/latest?apikey=FBVdNtnNoJ5LDhAusEQfIl0S8fUdFCnwnyNZ4RUg&currencies=EUR%2CUSD%2CCAD
 
 instance.defaults.headers.common['Accept'] = 'application/json';
 instance.defaults.headers.common['Cache-Control'] = 'no-cache';
