@@ -1,6 +1,6 @@
 import axios from 'axios'
 let token = localStorage.getItem('token')
-let apiKey = 'v93oWdVvyKNqsJ33iUrYPfg0wcXMs8Pe5RC5Bcif'
+let apiKey = 'RoWuPbXiBwGnHCy49ko10vuswezEYoCpRl5IQism'
 
 const instance = axios.create({
     baseURL: 'https://api.currencyapi.com/v3'

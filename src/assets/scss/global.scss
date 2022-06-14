@@ -2,6 +2,9 @@
     box-sizing: border-box;
 }
 
+.home {
+    padding: 20px;
+}
 
 .currency_form_wrapper {
     display: flex;
@@ -9,6 +12,7 @@
     .delete_icon_span {
         display: block;
         margin-bottom: 20px;
+        margin-right: 10px;
         svg {
             cursor: pointer;
         }
@@ -18,15 +22,17 @@
         display: flex;
         align-items: center;
         margin-bottom: 20px;
-        padding: 0 20px;
+        padding: 10px 20px;
         overflow-x: auto;
         overflow-y: hidden;
+        box-shadow: 0 0 10px;
+        border-radius: 10px;
 
         .delete_icon {
             display: block;
             margin-left: 10px;
             margin-right: 10px;
-           cursor: pointer;
+            cursor: pointer;
         }
 
         &::-webkit-scrollbar-track {
@@ -34,9 +40,8 @@
         }
 
         &::-webkit-scrollbar {
-            height: 5px;
+            height: 10px;
             -webkit-appearance: none;
-            background: #eee;
         }
 
         &::-webkit-scrollbar-thumb {
@@ -59,6 +64,9 @@
         }
 
         .add_btn {
+            min-width: 35px;
+            width: 35px;
+            height: 35px;
             cursor: pointer;
         }
 
@@ -124,6 +132,4 @@
 .ant_dropdown {
     z-index: 999;
     margin-left: -50px;
-
-    .ant-select-item-empty {}
 }

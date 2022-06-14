@@ -56,10 +56,12 @@ export const currencySlice = createSlice({
       let findedIndex = state.count_col.findIndex((item,index) => index == action.payload)
       state.count_col.splice(findedIndex,1)
     },
-    getCurrentTotCurrency (state,action) {
+    getCurrentToCurrency (state,action) {
       let foundedIndex =   state.count_row[action.payload.id].findIndex(item => item.uniqe_id == action.payload.uniqe_id)
       let foundedObj = state.count_row[action.payload.id].find(item => item.uniqe_id == action.payload.uniqe_id)
       foundedObj.value = action.payload.value
+      foundedObj.amount = action.payload.amount
+      console.log(action.payload);
       state.count_row[action.payload.id].splice(foundedIndex,foundedObj)
     }
   },
@@ -76,6 +78,6 @@ export const currencySlice = createSlice({
   }
 })
 
-export const { getFromCurrency, getCountCol, getCountRow, getCurrencyAmount,deleteCountRow,getCurrentTotCurrency,deleteCountCol} = currencySlice.actions
+export const { getFromCurrency, getCountCol, getCountRow, getCurrencyAmount,deleteCountRow,getCurrentToCurrency,deleteCountCol} = currencySlice.actions
 
 export default currencySlice.reducer

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { get } from "../helpers/api";
 import { Select } from "antd";
 import { useDispatch } from "react-redux";
-import { getCurrentTotCurrency } from "../store/slices/currency";
+import { getCurrentToCurrency } from "../store/slices/currency";
 
 const CurrencyToSelect = (props) => {
 	const { Option } = Select;
@@ -22,30 +22,27 @@ const CurrencyToSelect = (props) => {
 	const currency_amount = useSelector(state => state.currency.count_col[props.id - 1].currency_amount);
 	const current_from_currency = useSelector(state => state.currency.current_from_currency);
   let currentToValue = useSelector(state => state.currency.count_row[props.id].find(item => item.uniqe_id == props.uniqe_id).value)
+	let amountToCurrency = useSelector(state => state.currency.count_row[props.id].find(item => item.uniqe_id == props.uniqe_id).amount)
 
-	const [corvertedValueAmount, setConvertedValueAmount] = useState(0);
-	const [convertedValue, setConvertedValue] = useState();
+	const [corvertedValueAmount, setConvertedValueAmount] = useState(amountToCurrency || 0);
   const dispatch = useDispatch()
 	const calcCurrency = e => {
-    let currentValue = e ?? 'RUB'
-    let obj = {uniqe_id:props.uniqe_id,id:props.id, value:currentValue}
-    dispatch(getCurrentTotCurrency(obj))
-		get(`/latest?currencies=${currentToValue || "RUB"}&base_currency=${current_from_currency}`).then(res => {
+    let currentValue = (e || currentToValue) ?? 'RUB'
+		get(`/latest?currencies=${currentValue || "RUB"}&base_currency=${current_from_currency}`).then(res => {
 			let value = res.data.data[e || "RUB"].value;
-			setConvertedValue(value);
-			value = value * Number(currency_amount);
-      console.log(value);
-			setConvertedValueAmount(value.toFixed(2));
+			value = value * Number(currency_amount)
+			let obj = {uniqe_id:props.uniqe_id,id:props.id, value:currentValue,amount:value}
+			dispatch(getCurrentToCurrency(obj))
+			setConvertedValueAmount(value)
 		});
 	};
-  console.log(currency_amount,currentToValue);
 
 	useEffect(() => {
 		calcCurrency();
 	}, []);
 
 	useEffect(() => {
-		setConvertedValueAmount((convertedValue * Number(currency_amount)).toFixed());
+		setConvertedValueAmount((amountToCurrency * Number(currency_amount)).toFixed());
 	}, [currency_amount]);
 
 	return (

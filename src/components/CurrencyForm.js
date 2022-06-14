@@ -26,7 +26,7 @@ const CurrencyForm = (props) => {
 			{rowCount[props.id]?.map((item, index) => {
 				return (
 					<div className="currency_form_item">
-						{rowCount.length && (
+						{rowCount[props.id]?.length && (
 							<span key={item} className="equal_sign">
 								=
 							</span>
