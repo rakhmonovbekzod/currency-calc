@@ -1,6 +1,6 @@
 import axios from 'axios'
 let token = localStorage.getItem('token')
-let apiKey = 'RoWuPbXiBwGnHCy49ko10vuswezEYoCpRl5IQism'
+let apiKey = '7F0SjBOxnjfAcCaoIwC7qHSBMvQJ1BXgPLBpZeJx'
 
 const instance = axios.create({
     baseURL: 'https://api.currencyapi.com/v3'
@@ -10,11 +10,11 @@ instance.defaults.headers.common['Accept'] = 'application/json';
 instance.defaults.headers.common['Cache-Control'] = 'no-cache';
 instance.defaults.headers.common['Content-Type'] = 'text/plain';
 instance.interceptors.request.use(config => {
-  config.params =  {
-    apikey:  apiKey,
-   ...config.params,
-  }
-   return config;
+    config.params = {
+        apikey: apiKey,
+        ...config.params,
+    }
+    return config;
 })
 
 

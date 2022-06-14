@@ -2,24 +2,24 @@ import CurrencyFromSelect from "./CurrencyFromSelect";
 import CurrencyToSelect from "./CurrencyToSelect";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import {  getCountRow,deleteCountRow } from "../store/slices/currency";
+import { getCountRow, deleteCountRow } from "../store/slices/currency";
 import DeleteBtn from "./DeleteBtn";
 const CurrencyForm = (props) => {
 
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 	const rowCount = useSelector(state => state.currency.count_row)
-  
+
 
 	const addRow = () => {
-    let obj = {id:props.id,uniqe_id:Math.random()}
-    dispatch(getCountRow(obj))
+		let obj = { id: props.id, uniqe_id: Math.random() }
+		dispatch(getCountRow(obj))
 	};
 
-  const deleteRow = (e) =>  {
-    let obj = {id:props.id,dataset: e.currentTarget.dataset.id}
-    dispatch(deleteCountRow(obj))
-  }
- 
+	const deleteRow = (e) => {
+		let obj = { id: props.id, dataset: e.currentTarget.dataset.id }
+		dispatch(deleteCountRow(obj))
+	}
+
 	return (
 		<div className="currency_form">
 			<CurrencyFromSelect id={props.id} />
@@ -31,8 +31,8 @@ const CurrencyForm = (props) => {
 								=
 							</span>
 						)}
-						<CurrencyToSelect id={props.id}  uniqe_id={item.uniqe_id} key={index} />
-            <DeleteBtn  deleteItem={(e) => deleteRow(e)} dataset={item.uniqe_id}  />
+						<CurrencyToSelect id={props.id} uniqe_id={item.uniqe_id} key={index} />
+						<DeleteBtn deleteItem={(e) => deleteRow(e)} dataset={item.uniqe_id} />
 					</div>
 				);
 			})}

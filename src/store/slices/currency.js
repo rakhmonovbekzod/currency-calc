@@ -8,8 +8,8 @@ const initialState = {
   currencies: [],
   count_row: {},
   count_col: [],
-  currency_amount: 10,
-  
+  currency_amount: 1,
+
 
 }
 export const fetchCurrency = createAsyncThunk(
@@ -33,36 +33,37 @@ export const currencySlice = createSlice({
       state.current_to_currency = action.payload
     },
     getCountCol(state) {
-      state.count_col.push({length:state.count_col.length,currency_amount:10})
+      state.count_col.push({ length: state.count_col.length, currency_amount: 1 })
     },
-    getCountRow(state,action) {
+    getCountRow(state, action) {
+
       if (state.count_row[action.payload.id]) {
         state.count_row[action.payload.id].push(action.payload)
-      }else  {
-        state.count_row = {...state.count_row,...action.payload }
+      } else {
+        state.count_row[action.payload.id] = []
+        state.count_row[action.payload.id].push(action.payload)
       }
     },
     getCurrencyAmount(state, action) {
-     state.count_col[action.payload.id - 1].currency_amount = action.payload.currency_amount
+      state.count_col[action.payload.id - 1].currency_amount = action.payload.currency_amount
     },
-    deleteCountRow (state,action) {
-       let findedIndex = state.count_row[action.payload.id].findIndex(item => item.uniqe_id == action.payload.dataset)
-       
-      console.log(action.payload,findedIndex);
-       state.count_row[action.payload.id].splice(findedIndex,1)
+    deleteCountRow(state, action) {
+      let findedIndex = state.count_row[action.payload.id].findIndex(item => item.uniqe_id == action.payload.dataset)
+
+      console.log(action.payload, findedIndex);
+      state.count_row[action.payload.id].splice(findedIndex, 1)
 
     },
-    deleteCountCol (state,action) {
-      let findedIndex = state.count_col.findIndex((item,index) => index == action.payload)
-      state.count_col.splice(findedIndex,1)
+    deleteCountCol(state, action) {
+      let findedIndex = state.count_col.findIndex((item, index) => index == action.payload)
+      state.count_col.splice(findedIndex, 1)
     },
-    getCurrentToCurrency (state,action) {
-      let foundedIndex =   state.count_row[action.payload.id].findIndex(item => item.uniqe_id == action.payload.uniqe_id)
+    getCurrentToCurrency(state, action) {
+      let foundedIndex = state.count_row[action.payload.id].findIndex(item => item.uniqe_id == action.payload.uniqe_id)
       let foundedObj = state.count_row[action.payload.id].find(item => item.uniqe_id == action.payload.uniqe_id)
       foundedObj.value = action.payload.value
-      foundedObj.amount = action.payload.amount
-      console.log(action.payload);
-      state.count_row[action.payload.id].splice(foundedIndex,foundedObj)
+      foundedObj.amount = action.payload.amount;
+      state.count_row[action.payload.id].splice(foundedIndex, foundedObj)
     }
   },
   extraReducers: {
@@ -78,6 +79,6 @@ export const currencySlice = createSlice({
   }
 })
 
-export const { getFromCurrency, getCountCol, getCountRow, getCurrencyAmount,deleteCountRow,getCurrentToCurrency,deleteCountCol} = currencySlice.actions
+export const { getFromCurrency, getCountCol, getCountRow, getCurrencyAmount, deleteCountRow, getCurrentToCurrency, deleteCountCol } = currencySlice.actions
 
 export default currencySlice.reducer

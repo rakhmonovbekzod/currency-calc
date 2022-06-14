@@ -21,17 +21,17 @@ const CurrencyToSelect = (props) => {
 	const currencies = useSelector(state => state.currency.currencies);
 	const currency_amount = useSelector(state => state.currency.count_col[props.id - 1].currency_amount);
 	const current_from_currency = useSelector(state => state.currency.current_from_currency);
-  let currentToValue = useSelector(state => state.currency.count_row[props.id].find(item => item.uniqe_id == props.uniqe_id).value)
+	let currentToValue = useSelector(state => state.currency.count_row[props.id].find(item => item.uniqe_id == props.uniqe_id).value)
 	let amountToCurrency = useSelector(state => state.currency.count_row[props.id].find(item => item.uniqe_id == props.uniqe_id).amount)
 
 	const [corvertedValueAmount, setConvertedValueAmount] = useState(amountToCurrency || 0);
-  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 	const calcCurrency = e => {
-    let currentValue = (e || currentToValue) ?? 'RUB'
+		let currentValue = (e || currentToValue) ?? 'RUB'
 		get(`/latest?currencies=${currentValue || "RUB"}&base_currency=${current_from_currency}`).then(res => {
 			let value = res.data.data[e || "RUB"].value;
-			value = value * Number(currency_amount)
-			let obj = {uniqe_id:props.uniqe_id,id:props.id, value:currentValue,amount:value}
+			value = value * currency_amount
+			let obj = { uniqe_id: props.uniqe_id, id: props.id, value: currentValue, amount: value }
 			dispatch(getCurrentToCurrency(obj))
 			setConvertedValueAmount(value)
 		});
@@ -42,7 +42,7 @@ const CurrencyToSelect = (props) => {
 	}, []);
 
 	useEffect(() => {
-		setConvertedValueAmount((amountToCurrency * Number(currency_amount)).toFixed());
+		setConvertedValueAmount((amountToCurrency * parseInt(currency_amount)));
 	}, [currency_amount]);
 
 	return (
